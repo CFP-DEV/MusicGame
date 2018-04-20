@@ -2,7 +2,10 @@
 // Score / Combo UI
 // Song Progress / Current Time / Duration
 // Alerts for (50, 100, 150 combo...)
-
+// Audio support
+// Divide to modules instead of one big file
+// Throttle?
+// 3rd canvas to display user / song data
 class Game {
     constructor () {
         // Game's Info
@@ -80,6 +83,9 @@ class Game {
 
         // Init Controls
         this.initControls();
+
+        // Init Song
+        this.initSong();
 
         // Set Time
         this.startTime = Date.now();
@@ -203,6 +209,14 @@ class Game {
         this.ctx.fillStyle = "#FFFFFF";
         this.ctx.fillText(`Score: ${this.player.score}`, 20, 20);
         this.ctx.fillText(`Combo: ${this.player.combo}`, 20, 40);
+
+        // Song's Info
+        // TODO: MAke seconds display in 0:01 not 0:1 way
+        // TODO: Add progress bar
+        let songCurrent = Math.floor(this.audio.currentTime / 60) + ":" + Math.floor(this.audio.currentTime % 60);
+        let songDuration = Math.floor(this.audio.duration / 60) + ":" + Math.floor(this.audio.duration % 60);
+
+        this.ctx.fillText(`${songCurrent} / ${songDuration}`, 20, this.canvas.height - 20);
     }
 
     activeKey (line) {
@@ -260,6 +274,14 @@ class Game {
                     console.log('Other key was released');
             }
         });
+    }
+
+    initSong () {
+        // Init Audio
+        this.audio = new Audio('./js/down.mp3');
+
+        // Display Current Time & Duration
+        this.audio.play();
     }
 }
 
