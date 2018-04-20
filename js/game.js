@@ -1,7 +1,7 @@
-// TODO: Tiles logic
-// TODO: FPS Counter
 // TODO: Option to manipulate speed of the game / tile
 // Score / Combo UI
+// Song Progress / Current Time / Duration
+// Alerts for (50, 100, 150 combo...)
 
 class Game {
     constructor () {
@@ -27,18 +27,21 @@ class Game {
                     timer: 1500,
                     active: true,
                     position: -20,
+                    speed: 5,
                 },
                 {
                     line: 2,
                     timer: 3000,
                     active: true,
                     position: -20,
+                    speed: 10,
                 },
                 {
                     line: 3,
                     timer: 9000,
                     active: true,
                     position: -20,
+                    speed: 5,
                 },
             ],
         }
@@ -172,13 +175,14 @@ class Game {
                 this.ctx.fill();
 
                 // Increase position
-                tile.position += 5;
+                tile.position += tile.speed;
 
                 // Check if it's not out of board
                 if (tile.position >= this.canvas.height) {
                     tile.active = false;
 
-                    console.log('You\'ve missed a tile.');
+                    // User didn't hit the tile, score is resseting
+                    this.player.combo = 0;
                 };
             }
         });
@@ -193,6 +197,12 @@ class Game {
                 this.ctx.fill();
             }
         }
+
+        // Score & Combo
+        this.ctx.font = "12px Arial";
+        this.ctx.fillStyle = "#FFFFFF";
+        this.ctx.fillText(`Score: ${this.player.score}`, 20, 20);
+        this.ctx.fillText(`Combo: ${this.player.combo}`, 20, 40);
     }
 
     activeKey (line) {
@@ -200,14 +210,16 @@ class Game {
 
         this.song.tiles.forEach(tile => {
             if (tile.position >= this.canvas.height - 90 && tile.position <= this.canvas.height - 30 && tile.line === line && tile.active) {
-                console.log('Success! Youve hit a tile.');
+                this.player.score += 10 + this.player.combo;
+                this.player.combo += 1;
                 tile.active = false;
                 tileHit = true;
             };
         });
 
         if (!tileHit) {
-            console.log('Youve missed. Score is should reset now');
+            // User missed tile, combo is resseting
+            this.player.combo = 0;
         }
     } 
 
