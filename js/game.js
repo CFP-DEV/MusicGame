@@ -1,3 +1,8 @@
+// TODO: Tiles logic
+// TODO: FPS Counter
+// TODO: Option to manipulate speed of the game / tile
+// Score / Combo UI
+
 class Game {
     constructor () {
         // Game's Info
@@ -69,6 +74,9 @@ class Game {
     init () {
         // Draw Static UI
         this.drawStaticUI();
+
+        // Init Controls
+        this.initControls();
 
         // Set Time
         this.startTime = Date.now();
@@ -172,6 +180,72 @@ class Game {
 
                     console.log('You\'ve missed a tile.');
                 };
+            }
+        });
+
+        // Draw Keys
+        for (let i = 1; i <= this.game.linesNumber; i++) {
+            if (this.activeKeys[i - 1].active) {
+                // Activated Circle
+                this.ctx.beginPath();
+                this.ctx.arc(i * this.linesGap + this.game.lineWidth / 2, this.canvas.height - 60, 30, 2 * Math.PI, false);
+                this.ctx.fillStyle = "#FFFFFF";
+                this.ctx.fill();
+            }
+        }
+    }
+
+    activeKey (line) {
+        let tileHit = false; 
+
+        this.song.tiles.forEach(tile => {
+            if (tile.position >= this.canvas.height - 90 && tile.position <= this.canvas.height - 30 && tile.line === line && tile.active) {
+                console.log('Success! Youve hit a tile.');
+                tile.active = false;
+                tileHit = true;
+            };
+        });
+
+        if (!tileHit) {
+            console.log('Youve missed. Score is should reset now');
+        }
+    } 
+
+    initControls () {
+        // Click
+        document.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'q':
+                    this.activeKey(1);
+                    this.activeKeys[0].active = true;
+                    break;
+                case 'w':
+                    this.activeKey(2);
+                    this.activeKeys[1].active = true;
+                    break;
+                case 'e':
+                    this.activeKey(3);
+                    this.activeKeys[2].active = true;
+                    break;
+                default:
+                    console.log('Other key was clicked');
+            }
+        });
+
+        // Release
+        document.addEventListener('keyup', (e) => {
+            switch (e.key) {
+                case 'q':
+                    this.activeKeys[0].active = false;
+                    break;
+                case 'w':
+                    this.activeKeys[1].active = false;
+                    break;
+                case 'e':
+                    this.activeKeys[2].active = false;
+                    break;
+                default:
+                    console.log('Other key was released');
             }
         });
     }
