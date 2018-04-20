@@ -63,13 +63,18 @@ class Game {
         this.startTime;
 
         // Binds
-        //this.drawFrame = this.drawFrame.bind(this);
-        //this.drawUI = this.drawUI.bind(this);
+        this.drawFrame = this.drawFrame.bind(this);
     }
 
     init () {
         // Draw Static UI
         this.drawStaticUI();
+
+        // Set Time
+        this.startTime = Date.now();
+
+        // Draw Frame
+        this.drawFrame();
     }
 
     drawStaticUI () {
@@ -81,6 +86,14 @@ class Game {
         this.staticUIcanvas.height = this.game.height;
         this.staticUIcanvas.width = this.game.width;
 
+        // Init Game's Canvas
+        this.canvas = document.getElementById('game');
+        this.ctx = this.canvas.getContext('2d');
+
+        // Game's Canvas height & width
+        this.canvas.height = this.game.height;
+        this.canvas.width = this.game.width;
+
         // Calculate gap between lines
         this.linesGap = (this.staticUIcanvas.width - this.game.linesNumber * this.game.lineWidth) / (this.game.linesNumber + 1); 
 
@@ -88,17 +101,79 @@ class Game {
         this.staticUI.fillStyle = "#000000";
         this.staticUI.fillRect(0, 0, this.staticUIcanvas.width, this.staticUIcanvas.height);
 
-        // Draw Lines
+        // Draw Lines & Keys
         for (let i = 1; i <= this.game.linesNumber; i++) {
             // Line
             this.staticUI.fillStyle = "#FFFFFF";
             this.staticUI.fillRect(i * this.linesGap, 0, this.game.lineWidth, this.staticUIcanvas.height - 90);
             this.staticUI.fillRect(i * this.linesGap, this.staticUIcanvas.height - 30, this.game.lineWidth, this.staticUIcanvas.height);    
+        
+            // Circle
+            this.staticUI.beginPath();
+            this.staticUI.arc(i * this.linesGap + this.game.lineWidth / 2, this.staticUIcanvas.height - 60, 30, 2 * Math.PI, false);
+            this.staticUI.fillStyle = "rgba(0, 0, 0, 0)";
+            this.staticUI.fill();
+            this.staticUI.lineWidth = 2.5;
+            this.staticUI.strokeStyle = "#FFFFFF";
+            this.staticUI.stroke();
         }
-
+        
         // Draw Player's Info
+        
 
         // Draw Song's Info
+    }
+
+    drawFrame () {
+        requestAnimationFrame(this.drawFrame);
+
+        // Clear Canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Frames Counter
+        let currentTime = Date.now();
+
+        if (currentTime - this.lastFrames >= 1000) {
+            this.lastFrames = currentTime;
+            this.frames = this.ticks;
+            this.ticks = 0;
+        }
+
+        this.ticks++;
+
+        // Elapse Time & Drawing tiles
+        let elapsedTime = currentTime - this.startTime;
+
+        this.song.tiles.forEach(tile => {
+            if (elapsedTime >= tile.timer && tile.active) {
+                this.ctx.beginPath();
+                this.ctx.arc(tile.line * this.linesGap + this.game.lineWidth / 2, tile.position, 20, 2 * Math.PI, false);
+
+                // Set proper color based on line
+                switch (tile.line) {
+                    case 1:
+                        this.ctx.fillStyle = "#00ACED";
+                        break;
+                    case 2:
+                        this.ctx.fillStyle = "#f4df41";
+                        break;
+                    default:
+                        this.ctx.fillStyle = "#f44242";
+                }
+
+                this.ctx.fill();
+
+                // Increase position
+                tile.position += 5;
+
+                // Check if it's not out of board
+                if (tile.position >= this.canvas.height) {
+                    tile.active = false;
+
+                    console.log('You\'ve missed a tile.');
+                };
+            }
+        });
     }
 }
 
