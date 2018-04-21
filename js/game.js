@@ -93,6 +93,9 @@ class Game {
 
         // Draw Frame
         this.drawFrame();
+
+        // Draw Game UI
+        this.drawGameUI();
     }
 
     drawStaticUI () {
@@ -104,6 +107,14 @@ class Game {
         this.gameContainer = document.querySelector('.game');
         this.staticUIcanvas.height = this.gameContainer.clientHeight;
         this.staticUIcanvas.width = this.gameContainer.clientWidth;
+
+        // Init Game's UI Canvas
+        this.gameUIcanvas = document.getElementById('gameUI');
+        this.gameUI = this.gameUIcanvas.getContext('2d');
+
+        // Game's UI Canvas height & width
+        this.gameUIcanvas.height = this.gameContainer.clientHeight;
+        this.gameUIcanvas.width = this.gameContainer.clientWidth;
 
         // Init Game's Canvas
         this.canvas = document.getElementById('game');
@@ -215,12 +226,14 @@ class Game {
                 this.ctx.fill();
             }
         }
+    }
 
+    drawGameUI () {
         // Score & Combo
-        this.ctx.font = "12px Arial";
-        this.ctx.fillStyle = "#FFFFFF";
-        this.ctx.fillText(`Score: ${this.player.score}`, 20, 20);
-        this.ctx.fillText(`Combo: ${this.player.combo}`, 20, 40);
+        this.gameUI.font = "12px Arial";
+        this.gameUI.fillStyle = "#FFFFFF";
+        this.gameUI.fillText(`Score: ${this.player.score}`, 20, 20);
+        this.gameUI.fillText(`Combo: ${this.player.combo}`, 20, 40);
 
         // Song's Info
         // TODO: MAke seconds display in 0:01 not 0:1 way
@@ -228,7 +241,7 @@ class Game {
         let songCurrent = Math.floor(this.audio.currentTime / 60) + ":" + Math.floor(this.audio.currentTime % 60);
         let songDuration = Math.floor(this.audio.duration / 60) + ":" + Math.floor(this.audio.duration % 60);
 
-        this.ctx.fillText(`${songCurrent} / ${songDuration}`, 20, this.canvas.height - 20);
+        this.gameUI.fillText(`${songCurrent} / ${songDuration}`, 20, this.canvas.height - 20);
     }
 
     activeKey (line) {
