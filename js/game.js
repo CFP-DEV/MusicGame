@@ -162,6 +162,9 @@ class Game {
         
 
         // Draw Song's Info
+        // Duration Progress Bar
+        this.staticUI.fillStyle = "#666666";
+        this.staticUI.fillRect(20, this.staticUIcanvas.height - 40, 400, 20);
     }
 
     drawFrame () {
@@ -235,13 +238,24 @@ class Game {
         this.gameUI.fillText(`Score: ${this.player.score}`, 20, 20);
         this.gameUI.fillText(`Combo: ${this.player.combo}`, 20, 40);
 
-        // Song's Info
+        // Song's Info  
         // TODO: MAke seconds display in 0:01 not 0:1 way
         // TODO: Add progress bar
-        let songCurrent = Math.floor(this.audio.currentTime / 60) + ":" + Math.floor(this.audio.currentTime % 60);
-        let songDuration = Math.floor(this.audio.duration / 60) + ":" + Math.floor(this.audio.duration % 60);
+        this.audio.addEventListener('timeupdate', (e) => {
+            let songCurrent = Math.floor(this.audio.currentTime / 60) + ":" + Math.floor(this.audio.currentTime % 60);
 
-        this.gameUI.fillText(`${songCurrent} / ${songDuration}`, 20, this.canvas.height - 20);
+            // Draw Bar
+            this.gameUI.fillStyle = "#00ACED";
+            this.gameUI.fillRect(20, this.staticUIcanvas.height - 40, Math.floor(this.audio.currentTime * 400 / this.audio.duration), 20);
+
+            console.log(songCurrent);
+        });
+
+        this.audio.addEventListener('durationchange', (e) => {
+            let songDuration = Math.floor(this.audio.duration / 60) + ":" + Math.floor(this.audio.duration % 60);
+
+            console.log(songDuration);
+        });
     }
 
     activeKey (line) {
