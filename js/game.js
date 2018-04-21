@@ -244,11 +244,15 @@ class Game {
         this.audio.addEventListener('timeupdate', (e) => {
             let songCurrent = Math.floor(this.audio.currentTime / 60) + ":" + Math.floor(this.audio.currentTime % 60);
 
-            // Draw Bar
-            this.gameUI.fillStyle = "#00ACED";
-            this.gameUI.fillRect(20, this.staticUIcanvas.height - 40, Math.floor(this.audio.currentTime * 400 / this.audio.duration), 20);
+            if (this.lastTime !== Math.floor(this.audio.currentTime)) {
+                this.lastTime = Math.floor(this.audio.currentTime);
 
-            console.log(songCurrent);
+                // Draw Bar (only if time've changed)
+                this.gameUI.fillStyle = "#00ACED";
+                this.gameUI.fillRect(20, this.staticUIcanvas.height - 40, Math.floor(this.audio.currentTime * 400 / this.audio.duration), 20);
+
+                console.log(songCurrent);
+            }
         });
 
         this.audio.addEventListener('durationchange', (e) => {
