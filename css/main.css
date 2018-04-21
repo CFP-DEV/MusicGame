@@ -4,14 +4,24 @@ html, body {
 
 .game {
     height: 600px;
-    width: 400px;
+    width: 100%;
     position: relative;
 }
 
-.game__content, .game__interface {
+.game__interface, .game__content, .game__static-interface {
     position: absolute;
 }
 
+.game__interface, .game__static-interface {
+    width: 100%;
+}
+
+.game__interface {
+    z-index: 3;
+}
+
 .game__content {
-    z-index: 5;
+    width: 400px;
+    z-index: 2;
+    left: calc(50% - 200px);
 }

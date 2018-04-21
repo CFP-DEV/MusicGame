@@ -2,10 +2,10 @@
 // Score / Combo UI
 // Song Progress / Current Time / Duration
 // Alerts for (50, 100, 150 combo...)
-// Audio support
 // Divide to modules instead of one big file
 // Throttle?
 // 3rd canvas to display user / song data
+// Instead of time elapsed trigger events based on currentTime of the audio?!?!?!?!?!?!
 class Game {
     constructor () {
         // Game's Info
@@ -24,6 +24,7 @@ class Game {
 
         // Song's Info
         this.song = {
+            backgroundURL: '',
             tiles: [
                 {
                     line: 1,
@@ -96,12 +97,13 @@ class Game {
 
     drawStaticUI () {
         // Init Canvas
-        this.staticUIcanvas = document.getElementById('gameUI');
+        this.staticUIcanvas = document.getElementById('gameUIstatic');
         this.staticUI = this.staticUIcanvas.getContext('2d');
 
         // Canvas height & width
-        this.staticUIcanvas.height = this.game.height;
-        this.staticUIcanvas.width = this.game.width;
+        this.gameContainer = document.querySelector('.game');
+        this.staticUIcanvas.height = this.gameContainer.clientHeight;
+        this.staticUIcanvas.width = this.gameContainer.clientWidth;
 
         // Init Game's Canvas
         this.canvas = document.getElementById('game');
@@ -112,22 +114,32 @@ class Game {
         this.canvas.width = this.game.width;
 
         // Calculate gap between lines
-        this.linesGap = (this.staticUIcanvas.width - this.game.linesNumber * this.game.lineWidth) / (this.game.linesNumber + 1); 
+        this.linesGap = (this.game.width - this.game.linesNumber * this.game.lineWidth) / (this.game.linesNumber + 1); 
 
         // Draw Background
+        // Draw Image (Placeholder for now)
+        this.staticUI.fillStyle = "#333333";
+        this.staticUI.fillRect(0, 0, this.staticUIcanvas.width, this.staticUIcanvas.height);
+
+        // Draw Black Background
+        this.staticUI.fillStyle = "#000000";
+        this.staticUI.fillRect((this.staticUIcanvas.width - this.game.width) / 2, 0, this.game.width, this.game.height);
+
+        /*
         this.staticUI.fillStyle = "#000000";
         this.staticUI.fillRect(0, 0, this.staticUIcanvas.width, this.staticUIcanvas.height);
+        */
 
         // Draw Lines & Keys
         for (let i = 1; i <= this.game.linesNumber; i++) {
             // Line
             this.staticUI.fillStyle = "#FFFFFF";
-            this.staticUI.fillRect(i * this.linesGap, 0, this.game.lineWidth, this.staticUIcanvas.height - 90);
-            this.staticUI.fillRect(i * this.linesGap, this.staticUIcanvas.height - 30, this.game.lineWidth, this.staticUIcanvas.height);    
+            this.staticUI.fillRect(i * this.linesGap + (this.staticUIcanvas.width - this.game.width) / 2, 0, this.game.lineWidth, this.staticUIcanvas.height - 90);
+            this.staticUI.fillRect(i * this.linesGap + (this.staticUIcanvas.width - this.game.width) / 2, this.staticUIcanvas.height - 30, this.game.lineWidth, this.staticUIcanvas.height);    
         
             // Circle
             this.staticUI.beginPath();
-            this.staticUI.arc(i * this.linesGap + this.game.lineWidth / 2, this.staticUIcanvas.height - 60, 30, 2 * Math.PI, false);
+            this.staticUI.arc(i * this.linesGap + this.game.lineWidth / 2 + (this.staticUIcanvas.width - this.game.width) / 2, this.staticUIcanvas.height - 60, 30, 2 * Math.PI, false);
             this.staticUI.fillStyle = "rgba(0, 0, 0, 0)";
             this.staticUI.fill();
             this.staticUI.lineWidth = 2.5;
