@@ -1,10 +1,8 @@
 // TODO: Option to manipulate speed of the game / tile
-// Score / Combo UI
 // Song Progress / Current Time / Duration
 // Alerts for (50, 100, 150 combo...)
 // Divide to modules instead of one big file
 // Throttle?
-// 3rd canvas to display user / song data
 // Instead of time elapsed trigger events based on currentTime of the audio?!?!?!?!?!?!
 class Game {
     constructor () {
@@ -20,6 +18,7 @@ class Game {
         this.player = {
             score: 0,
             combo: 0,
+            multiplier: 1,
         }
 
         // Song's Info
@@ -134,11 +133,6 @@ class Game {
         this.staticUI.fillStyle = "#000000";
         this.staticUI.fillRect((this.staticUIcanvas.width - this.game.width) / 2, 0, this.game.width, this.game.height);
 
-        /*
-        this.staticUI.fillStyle = "#000000";
-        this.staticUI.fillRect(0, 0, this.staticUIcanvas.width, this.staticUIcanvas.height);
-        */
-
         // Draw Lines & Keys
         for (let i = 1; i <= this.game.linesNumber; i++) {
             // Line
@@ -157,7 +151,14 @@ class Game {
         }
         
         // Draw Player's Info
-        
+        this.staticUI.fillStyle = "rgba(255, 255, 255, 0.8)";
+        this.staticUI.fillRect(20, 20, 400, 80);
+
+        this.staticUI.fillStyle = "#000000";
+        this.staticUI.font = "18px 'Arial'";
+        this.staticUI.fillText('Score', 40, 58);
+        this.staticUI.fillText('Streak', 155, 58);
+        this.staticUI.fillText('Multiplier', 280, 58);
 
         // Draw Song's Info
         // Duration Progress Bar
@@ -238,9 +239,10 @@ class Game {
 
         // Draw Score
         this.gameUI.font = "14px 'Arial'";
-        this.gameUI.fillStyle = "#FFFFFF";
-        this.gameUI.fillText(`Score: ${this.player.score}`, 20, 20);
-        this.gameUI.fillText(`Combo: ${this.player.combo}`, 20, 40);
+        this.gameUI.fillStyle = "#000000";
+        this.gameUI.fillText(this.player.score, 40, 82);
+        this.gameUI.fillText(this.player.combo, 155, 82);
+        this.gameUI.fillText(this.player.multiplier, 280, 82);
     }
 
     drawGameUI () {
