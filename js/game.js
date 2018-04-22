@@ -1,5 +1,4 @@
 // TODO: Option to manipulate speed of the game / tile
-// Song Progress / Current Time / Duration
 // Alerts for (50, 100, 150 combo...)
 // Divide to modules instead of one big file
 // Throttle?
@@ -254,8 +253,6 @@ class Game {
         });
 
         // Song's Info  
-        // TODO: MAke seconds display in 0:01 not 0:1 way
-        // TODO: Add progress bar
         this.audio.addEventListener('timeupdate', (e) => {
             if (this.lastTime !== Math.floor(this.audio.currentTime)) {
                 this.lastTime = Math.floor(this.audio.currentTime);
@@ -266,6 +263,20 @@ class Game {
                 // Draw Bar
                 this.gameUI.fillStyle = "#00ACED";
                 this.gameUI.fillRect(20, this.staticUIcanvas.height - 40, Math.floor(this.audio.currentTime * 400 / this.audio.duration), 20);
+
+                // Calculate currentTime and duration
+                let currentTimeM = Math.floor(this.audio.currentTime / 60);
+                let currentTimeS = Math.floor(this.audio.currentTime % 60) < 10 ? '0' + Math.floor(this.audio.currentTime % 60) : Math.floor(this.audio.currentTime % 60);
+                let currentTime = `${currentTimeM}:${currentTimeS}`;
+
+                let durationM = Math.floor(this.audio.duration / 60);
+                let durationS = Math.floor(this.audio.duration % 60) < 10 ? '0' + Math.floor(this.audio.duration % 60) : Math.floor(this.audio.duration % 60);
+                let duration = `${durationM}:${durationS}`;
+
+                // Print Text
+                this.gameUI.fillStyle = "#FFFFFF";
+                this.gameUI.font = "14px 'Arial'";
+                this.gameUI.fillText(`${currentTime} / ${duration}`, 440, this.staticUIcanvas.height - 26);
             }
         });
 
