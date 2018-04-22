@@ -76,6 +76,9 @@ class Game {
 
         // Binds
         this.drawFrame = this.drawFrame.bind(this);
+
+        // Custom Events
+        this.scoreChange = new Event('scoreChange');
     }
 
     init () {
@@ -213,8 +216,11 @@ class Game {
                 if (tile.position >= this.canvas.height) {
                     tile.active = false;
 
-                    // User didn't hit the tile, score is resseting
+                    // User didn't hit the tile, combo is resseting
                     this.player.combo = 0;
+
+                    // Dispatch event
+                    document.dispatchEvent(this.scoreChange);
                 };
             }
         });
@@ -231,34 +237,43 @@ class Game {
         }
     }
 
-    drawGameUI () {
-        // Score & Combo
-        this.gameUI.font = "12px Arial";
+    drawScore () {
+        // Clear
+        this.gameUI.clearRect(0, 0, 400, 200);
+
+        // Draw Score
+        this.gameUI.font = "14px 'Arial'";
         this.gameUI.fillStyle = "#FFFFFF";
         this.gameUI.fillText(`Score: ${this.player.score}`, 20, 20);
         this.gameUI.fillText(`Combo: ${this.player.combo}`, 20, 40);
+    }
+
+    drawGameUI () {
+        this.drawScore();
+
+        // Score & Combo
+        document.addEventListener('scoreChange', () => {
+            this.drawScore();
+        });
 
         // Song's Info  
         // TODO: MAke seconds display in 0:01 not 0:1 way
         // TODO: Add progress bar
         this.audio.addEventListener('timeupdate', (e) => {
-            let songCurrent = Math.floor(this.audio.currentTime / 60) + ":" + Math.floor(this.audio.currentTime % 60);
-
             if (this.lastTime !== Math.floor(this.audio.currentTime)) {
                 this.lastTime = Math.floor(this.audio.currentTime);
 
-                // Draw Bar (only if time've changed)
+                // Clear Bar
+                this.gameUI.clearRect(0, this.staticUIcanvas.height - 40, this.staticUIcanvas.width, 40);
+
+                // Draw Bar
                 this.gameUI.fillStyle = "#00ACED";
                 this.gameUI.fillRect(20, this.staticUIcanvas.height - 40, Math.floor(this.audio.currentTime * 400 / this.audio.duration), 20);
-
-                console.log(songCurrent);
             }
         });
 
         this.audio.addEventListener('durationchange', (e) => {
-            let songDuration = Math.floor(this.audio.duration / 60) + ":" + Math.floor(this.audio.duration % 60);
 
-            console.log(songDuration);
         });
     }
 
@@ -271,12 +286,18 @@ class Game {
                 this.player.combo += 1;
                 tile.active = false;
                 tileHit = true;
+
+                // Dispatch event
+                document.dispatchEvent(this.scoreChange);
             };
         });
 
         if (!tileHit) {
             // User missed tile, combo is resseting
             this.player.combo = 0;
+
+            // Dispatch event
+            document.dispatchEvent(this.scoreChange);
         }
     } 
 
@@ -329,8 +350,6 @@ class Game {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Document loaded!');
-
     // Init Game
     const RockMania = new Game();
     RockMania.init();
