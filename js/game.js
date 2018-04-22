@@ -2,7 +2,8 @@
 // Alerts for (50, 100, 150 combo...)
 // Divide to modules instead of one big file
 // Throttle?
-// Instead of time elapsed trigger events based on currentTime of the audio?!?!?!?!?!?!
+// Window resize support
+// Support for 'long' tiles
 class Game {
     constructor () {
         // Game's Info
@@ -69,9 +70,6 @@ class Game {
         this.ticks = 0;
         this.lastFrames = 0;
 
-        // Timer
-        this.startTime;
-
         // Binds
         this.drawFrame = this.drawFrame.bind(this);
 
@@ -88,9 +86,6 @@ class Game {
 
         // Init Song
         this.initSong();
-
-        // Set Time
-        this.startTime = Date.now();
 
         // Draw Frame
         this.drawFrame();
@@ -183,10 +178,8 @@ class Game {
         this.ticks++;
 
         // Elapse Time & Drawing tiles
-        let elapsedTime = currentTime - this.startTime;
-
         this.song.tiles.forEach(tile => {
-            if (elapsedTime >= tile.timer && tile.active) {
+            if (Math.round(this.audio.currentTime * 1000) >= tile.timer && tile.active) {
                 this.ctx.beginPath();
                 this.ctx.arc(tile.line * this.linesGap + this.game.lineWidth / 2, tile.position, 20, 2 * Math.PI, false);
 
