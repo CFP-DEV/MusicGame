@@ -8,6 +8,11 @@ html, body {
     height: 600px;
     width: 100%;
     position: relative;
+    background: url('../js/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 80%;
+    overflow-y: hidden;
 }
 
 .game__interface, .game__content, .game__static-interface {

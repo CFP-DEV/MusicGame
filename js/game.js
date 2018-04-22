@@ -130,11 +130,6 @@ class Game {
         // Calculate gap between lines
         this.linesGap = (this.game.width - this.game.linesNumber * this.game.lineWidth) / (this.game.linesNumber + 1); 
 
-        // Draw Background
-        // Draw Image (Placeholder for now)
-        this.staticUI.fillStyle = "#333333";
-        this.staticUI.fillRect(0, 0, this.staticUIcanvas.width, this.staticUIcanvas.height);
-
         // Draw Black Background
         this.staticUI.fillStyle = "#000000";
         this.staticUI.fillRect((this.staticUIcanvas.width - this.game.width) / 2, 0, this.game.width, this.game.height);
