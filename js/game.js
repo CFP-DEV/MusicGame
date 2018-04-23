@@ -1,9 +1,11 @@
-// TODO: Option to manipulate speed of the game / tile
 // Alerts for (50, 100, 150 combo...)
 // Divide to modules instead of one big file
 // Throttle?
 // Window resize support
 // Support for 'long' tiles
+// Menu
+// Optimization
+// better UI, UX
 class Game {
     constructor () {
         // Game's Info
@@ -689,10 +691,27 @@ class Game {
                 this.gameUI.fillText(`${currentTime} / ${duration}`, 440, this.staticUIcanvas.height - 26);
             }
         });
+    }
 
-        this.audio.addEventListener('durationchange', (e) => {
+    createAlert (message) {
+      // Clear current displayed alert
+      if (this.alert) {
+        clearTimeout(this.alert);
 
-        });
+        this.alert = '';
+        this.gameUI.clearRect(this.gameUIcanvas.width / 2 - this.game.width / 2, 0, this.game.width, this.game.height);
+      }
+
+      // Create new alert
+      this.gameUI.fillStyle = "#FFFFFF";
+      this.gameUI.font = "18px 'Arial'";
+      this.gameUI.textAlign = "center";
+      this.gameUI.fillText(message, this.gameUIcanvas.width / 2, this.gameUIcanvas.height / 2 + 18);
+
+      this.alert = setTimeout(() => {
+        // Clear screen
+        this.gameUI.clearRect(this.gameUIcanvas.width / 2 - this.game.width / 2, 0, this.game.width, this.game.height);
+      }, 2000);
     }
 
     activeKey (line) {
@@ -705,6 +724,16 @@ class Game {
                     this.player.combo += 1;
                     tile.active = false;
                     tileHit = true;
+
+                    switch (this.player.combo) {
+                        case 10: 
+                            this.createAlert('10 STREAK !!!');
+                            break;
+
+                        case 50:
+                            this.createAlert('50 STREAK !!!');
+                            break;
+                    }
 
                     // Dispatch event
                     document.dispatchEvent(this.scoreChange);
