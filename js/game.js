@@ -12,6 +12,7 @@ class Game {
             height: 600,
             lineWidth: 3,
             linesNumber: 3,
+            recordMode: false,
         }
 
         // Player's Info
@@ -25,27 +26,426 @@ class Game {
         this.song = {
             backgroundURL: '',
             tiles: [
-                {
-                    line: 1,
-                    timer: 1500,
-                    active: true,
-                    position: -20,
-                    speed: 5,
-                },
-                {
-                    line: 2,
-                    timer: 3000,
-                    active: true,
-                    position: -20,
-                    speed: 10,
-                },
-                {
-                    line: 3,
-                    timer: 9000,
-                    active: true,
-                    position: -20,
-                    speed: 5,
-                },
+              {
+                "line": 1,
+                "timer": 11178,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 11783,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 12472,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 13890,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 15306,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 18097,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 19476,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 20810,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 23479,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 23803,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 24126,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 24773,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 25137,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 25501,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 26189,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 26556,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 26879,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 27202,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 27525,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 27891,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 28216,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 28864,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 29227,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 29590,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 30277,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 30601,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 30926,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 31615,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 31939,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 32303,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 32627,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 32991,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 33356,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 33681,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 34331,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 34655,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 34978,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 35667,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 36033,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 36357,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 37087,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 37451,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 37775,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 38098,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 38463,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 38787,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 39108,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 39839,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 40163,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 40486,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 41134,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 41499,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 41822,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 1,
+                "timer": 42513,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 42876,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 43200,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 43522,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 43926,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 3,
+                "timer": 44289,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              },
+              {
+                "line": 2,
+                "timer": 44614,
+                "active": true,
+                "position": -20,
+                "speed": 5
+              }
             ],
         }
 
@@ -65,10 +465,14 @@ class Game {
             },
         ];
 
+        // Record Mode
+        this.recordTiles = [];
+
         // FPS Counter
         this.frames = 0;
         this.ticks = 0;
         this.lastFrames = 0;
+        this.delay = 0;
 
         // Binds
         this.drawFrame = this.drawFrame.bind(this);
@@ -132,7 +536,7 @@ class Game {
             // Line
             this.staticUI.fillStyle = "#FFFFFF";
             this.staticUI.fillRect(i * this.linesGap + (this.staticUIcanvas.width - this.game.width) / 2, 0, this.game.lineWidth, this.staticUIcanvas.height - 90);
-            this.staticUI.fillRect(i * this.linesGap + (this.staticUIcanvas.width - this.game.width) / 2, this.staticUIcanvas.height - 30, this.game.lineWidth, this.staticUIcanvas.height);    
+            this.staticUI.fillRect(i * this.linesGap + (this.staticUIcanvas.width - this.game.width) / 2, this.staticUIcanvas.height - 30, this.game.lineWidth, this.staticUIcanvas.height); 
         
             // Circle
             this.staticUI.beginPath();
@@ -178,40 +582,47 @@ class Game {
         this.ticks++;
 
         // Elapse Time & Drawing tiles
-        this.song.tiles.forEach(tile => {
-            if (Math.round(this.audio.currentTime * 1000) >= tile.timer && tile.active) {
-                this.ctx.beginPath();
-                this.ctx.arc(tile.line * this.linesGap + this.game.lineWidth / 2, tile.position, 20, 2 * Math.PI, false);
+        if (!this.game.recordMode) {
+            this.song.tiles.forEach(tile => {
+                if (Math.round(this.audio.currentTime * 1000) >= tile.timer - Math.round(530 / 300) * 1000 && tile.active) {
+                    this.ctx.beginPath();
+                    this.ctx.arc(tile.line * this.linesGap + this.game.lineWidth / 2, tile.position, 20, 2 * Math.PI, false);
 
-                // Set proper color based on line
-                switch (tile.line) {
-                    case 1:
-                        this.ctx.fillStyle = "#00ACED";
-                        break;
-                    case 2:
-                        this.ctx.fillStyle = "#f4df41";
-                        break;
-                    default:
-                        this.ctx.fillStyle = "#f44242";
+                    // Set proper color based on line
+                    switch (tile.line) {
+                        case 1:
+                            this.ctx.fillStyle = "#00ACED";
+                            break;
+                        case 2:
+                            this.ctx.fillStyle = "#f4df41";
+                            break;
+                        default:
+                            this.ctx.fillStyle = "#f44242";
+                    }
+
+                    this.ctx.fill();
+
+                    // If tile is 'long' then draw rest of it
+                    // if (tile.length) {
+                    //     this.ctx.fillRect(tile.line * this.linesGap - 5, tile.position - 20 - tile.length, 10, tile.length);
+                    // }
+
+                    // Increase position
+                    tile.position += tile.speed;
+
+                    // Check if it's not out of board
+                    if (tile.position >= this.canvas.height) {
+                        tile.active = false;
+
+                        // User didn't hit the tile, combo is resseting
+                        this.player.combo = 0;
+
+                        // Dispatch event
+                        document.dispatchEvent(this.scoreChange);
+                    };
                 }
-
-                this.ctx.fill();
-
-                // Increase position
-                tile.position += tile.speed;
-
-                // Check if it's not out of board
-                if (tile.position >= this.canvas.height) {
-                    tile.active = false;
-
-                    // User didn't hit the tile, combo is resseting
-                    this.player.combo = 0;
-
-                    // Dispatch event
-                    document.dispatchEvent(this.scoreChange);
-                };
-            }
-        });
+            });
+        }
 
         // Draw Keys
         for (let i = 1; i <= this.game.linesNumber; i++) {
@@ -247,6 +658,12 @@ class Game {
 
         // Song's Info  
         this.audio.addEventListener('timeupdate', (e) => {
+            if (this.game.recordMode && this.audio.currentTime >= this.audio.duration) {
+                console.log(this.recordTiles);
+
+                return;
+            }
+
             if (this.lastTime !== Math.floor(this.audio.currentTime)) {
                 this.lastTime = Math.floor(this.audio.currentTime);
 
@@ -279,26 +696,36 @@ class Game {
     }
 
     activeKey (line) {
-        let tileHit = false; 
+        if (!this.game.recordMode) {
+            let tileHit = false; 
 
-        this.song.tiles.forEach(tile => {
-            if (tile.position >= this.canvas.height - 90 && tile.position <= this.canvas.height - 30 && tile.line === line && tile.active) {
-                this.player.score += 10 + this.player.combo;
-                this.player.combo += 1;
-                tile.active = false;
-                tileHit = true;
+            this.song.tiles.forEach(tile => {
+                if (tile.position >= this.canvas.height - 90 && tile.position <= this.canvas.height - 30 && tile.line === line && tile.active) {
+                    this.player.score += 10 + this.player.combo;
+                    this.player.combo += 1;
+                    tile.active = false;
+                    tileHit = true;
+
+                    // Dispatch event
+                    document.dispatchEvent(this.scoreChange);
+                };
+            });
+
+            if (!tileHit) {
+                // User missed tile, combo is resseting
+                this.player.combo = 0;
 
                 // Dispatch event
                 document.dispatchEvent(this.scoreChange);
-            };
-        });
-
-        if (!tileHit) {
-            // User missed tile, combo is resseting
-            this.player.combo = 0;
-
-            // Dispatch event
-            document.dispatchEvent(this.scoreChange);
+            }
+        } else {
+            this.recordTiles.push({
+                line: line,
+                timer: Math.round(this.audio.currentTime * 1000),
+                active: true,
+                position: -20,
+                speed: 5,
+            });
         }
     } 
 
@@ -343,7 +770,7 @@ class Game {
 
     initSong () {
         // Init Audio
-        this.audio = new Audio('./js/down.mp3');
+        this.audio = new Audio('./js/capone.mp3');
 
         // Display Current Time & Duration
         this.audio.play();
