@@ -555,7 +555,7 @@ class Game {
         this.staticUI.fillRect(20, 20, 400, 80);
 
         this.staticUI.fillStyle = "#000000";
-        this.staticUI.font = "18px 'Arial'";
+        this.staticUI.font = "18px 'Montserrat', sans-serif";
         this.staticUI.fillText('Score', 40, 58);
         this.staticUI.fillText('Streak', 155, 58);
         this.staticUI.fillText('Multiplier', 280, 58);
@@ -703,10 +703,12 @@ class Game {
       }
 
       // Create new alert
+      this.gameUI.save();
       this.gameUI.fillStyle = "#FFFFFF";
       this.gameUI.font = "18px 'Arial'";
       this.gameUI.textAlign = "center";
       this.gameUI.fillText(message, this.gameUIcanvas.width / 2, this.gameUIcanvas.height / 2 + 18);
+      this.gameUI.restore();
 
       this.alert = setTimeout(() => {
         // Clear screen
@@ -806,8 +808,8 @@ class Game {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+window.onload = () => {
     // Init Game
     const RockMania = new Game();
     RockMania.init();
-});
+};
