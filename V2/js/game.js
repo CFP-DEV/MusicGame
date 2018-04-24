@@ -560,6 +560,9 @@ class Game {
             if (timer === 0) {
                 clearInterval(timerFunc);
 
+                // Clear Screen
+                this.gameUI.clearRect(0, 0, this.gameUIcanvas.width, this.game.height);
+
                 // Start Audio
                 this.audio = new Audio('./assets/capone.mp3');
                 this.audio.play();
@@ -573,18 +576,12 @@ class Game {
                 // Clear Screen
                 this.gameUI.clearRect(0, 0, this.gameUIcanvas.width, this.game.height);
 
+                // Draw
                 this.gameUI.save();
                 this.gameUI.fillStyle = this.colors.white;
                 this.gameUI.font = "700 96px 'Montserrat', sans-serif";
                 this.gameUI.textAlign = "center";
-
-                this.gameUI.strokeStyle = this.colors.dark;
-                this.gameUI.lineWidth = 2;
-
                 this.gameUI.fillText(timer, this.gameUIcanvas.width / 2, 300);
-                this.gameUI.strokeText(timer, this.gameUIcanvas.width / 2, 300);
-                this.gameUI.fill();
-                this.gameUI.stroke();
                 this.gameUI.restore();
             }
 
@@ -632,6 +629,7 @@ class Game {
         // Draw Player's Score
         this.staticUI.fillStyle = this.colors.white;
         this.staticUI.font = "12px 'Montserrat', sans-serif";
+        this.staticUI.textAlign = "start";
         this.staticUI.fillText('Score', 40, 52);
         this.staticUI.fillText('Streak', 160, 52);
         this.staticUI.fillText('Multiplier', 280, 52);
@@ -642,8 +640,7 @@ class Game {
     }
 
     drawUI () {
-        // Clear Screen
-        this.gameUI.clearRect(0, 0, this.gameUIcanvas.width, this.game.height);
+        this.updateScore();
 
         // Track Score / Streak / Multiplier
         document.addEventListener('scoreChange', () => {
@@ -763,6 +760,7 @@ class Game {
          // Draw Score
          this.gameUI.font = "700 24px 'Montserrat', sans-serif";
          this.gameUI.fillStyle = this.colors.white;
+         this.gameUI.textAlign = "start";
          this.gameUI.fillText(this.player.score, 40, 86);
          this.gameUI.fillText(this.player.streak, 160, 86);
          this.gameUI.fillText(`x ${this.player.multiplier}`, 280, 86);
