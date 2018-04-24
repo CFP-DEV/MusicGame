@@ -1,17 +1,16 @@
 html, body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    font-size: 32px;
 }
 
 .game {
     height: 600px;
     width: 100%;
     position: relative;
-    background: url('../js/background.jpg');
+    background: url('../assets/images/background.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center 80%;
+    background-position: center center;
     overflow-y: hidden;
 }
 
@@ -28,7 +27,7 @@ html, body {
 }
 
 .game__content {
-    width: 400px;
+    width: 440px;
     z-index: 2;
-    left: calc(50% - 200px);
+    left: calc(50% - 220px);
 }
