@@ -1,0 +1,33 @@
+html, body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.game {
+    height: 600px;
+    width: 100%;
+    position: relative;
+    background: url('../assets/images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    overflow-y: hidden;
+}
+
+.game__interface, .game__content, .game__static-interface {
+    position: absolute;
+}
+
+.game__interface, .game__static-interface {
+    width: 100%;
+}
+
+.game__interface {
+    z-index: 3;
+}
+
+.game__content {
+    width: 440px;
+    z-index: 2;
+    left: calc(50% - 220px);
+}
