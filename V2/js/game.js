@@ -569,9 +569,25 @@ class Game {
 
                 // Start Animation
                 this.drawFrame();
+            } else {
+                // Clear Screen
+                this.gameUI.clearRect(0, 0, this.gameUIcanvas.width, this.game.height);
+
+                this.gameUI.save();
+                this.gameUI.fillStyle = this.colors.white;
+                this.gameUI.font = "700 96px 'Montserrat', sans-serif";
+                this.gameUI.textAlign = "center";
+
+                this.gameUI.strokeStyle = this.colors.dark;
+                this.gameUI.lineWidth = 2;
+
+                this.gameUI.fillText(timer, this.gameUIcanvas.width / 2, 300);
+                this.gameUI.strokeText(timer, this.gameUIcanvas.width / 2, 300);
+                this.gameUI.fill();
+                this.gameUI.stroke();
+                this.gameUI.restore();
             }
 
-            console.log(timer);
             timer -= 1;
         }, 1000);
     }
@@ -589,18 +605,28 @@ class Game {
         this.tilesStart = (this.game.width - (this.linesNumber - 1) * (this.game.linesGap + 60)) / 2;
 
         for (let i = 1; i <= this.linesNumber; i++) {
+            let xPos = this.linesStart + (this.game.linesGap + 30) * i;
+
             // Line
             this.staticUI.fillStyle = this.colors.white;
-            this.staticUI.fillRect(this.linesStart + (this.game.linesGap + 30) * i, 0, this.game.lineWidth, this.game.height - 140);
+            this.staticUI.fillRect(xPos, 0, this.game.lineWidth, this.game.height - 140);
 
             // Circle
             this.staticUI.beginPath();
-            this.staticUI.arc(this.linesStart + (this.game.linesGap + 30) * i, this.staticUIcanvas.height - 110, 30, 2 * Math.PI, false);
+            this.staticUI.arc(xPos, this.staticUIcanvas.height - 110, 30, 2 * Math.PI, false);
             this.staticUI.fillStyle = this.colors.transparent;
             this.staticUI.fill();
             this.staticUI.lineWidth = this.game.lineWidth;
             this.staticUI.strokeStyle = this.colors.white;
             this.staticUI.stroke();
+
+            // Text in Circle
+            this.gameUI.save();
+            this.staticUI.fillStyle = this.colors.white;
+            this.staticUI.font = "700 18px 'Montserrat', sans-serif";
+            this.staticUI.textAlign = "center";
+            this.staticUI.fillText(this.keys[i - 1].key.toUpperCase(), xPos, this.game.height - 103);
+            this.gameUI.restore();
         }
 
         // Draw Player's Score
@@ -616,6 +642,9 @@ class Game {
     }
 
     drawUI () {
+        // Clear Screen
+        this.gameUI.clearRect(0, 0, this.gameUIcanvas.width, this.game.height);
+
         // Track Score / Streak / Multiplier
         document.addEventListener('scoreChange', () => {
             this.updateScore();
@@ -711,6 +740,11 @@ class Game {
                     if (tile.position >= this.game.height - 60) {
                         this.song.tiles.splice(index, 1);
 
+                        // Display alert
+                        if (this.player.streak >= 5) {
+                            this.createAlert('MISS', this.colors.red);
+                        }
+
                         // User didn't hit the tile, streak is resseting
                         this.setStreak(0)
 
@@ -757,6 +791,23 @@ class Game {
                 tileHit = true;
 
                 // Display special alerts
+                switch (this.player.streak) {
+                    case 10:
+                        this.createAlert('10 STREAK', this.colors.yellow);
+                        break;
+                    case 50:
+                        this.createAlert('50 STREAK', this.colors.yellow);
+                        break;
+                    case 100:
+                        this.createAlert('100 STREAK', this.colors.yellow);
+                        break;
+                    case 200:
+                        this.createAlert('200 STREAK', this.colors.yellow);
+                        break;
+                    case 500:
+                        this.createAlert('500 STREAK', this.colors.yellow);
+                        break;
+                }
 
                 // Remove tile
                 this.song.tiles.splice(index, 1);
@@ -772,6 +823,11 @@ class Game {
 
         if (!tileHit) {
             this.gameUI.fillStyle = this.colors.white;
+
+            // Display alert
+            if (this.player.streak >= 5) {
+                this.createAlert('MISS', this.colors.red);
+            }
 
             // User missed tile, combo is resseting
             this.setStreak(0);
@@ -797,6 +853,34 @@ class Game {
 
     deactiveKey (line) {
         this.gameUI.clearRect(this.linesStart - 30 + (this.game.linesGap + 30) * line, this.game.height - 140, 60, 60);
+    }
+
+    createAlert (message, color) {
+        if (this.alert) {
+            // Clear alert
+            clearTimeout(this.alert);
+            this.alert = '';
+
+            // Clear screen
+            this.gameUI.clearRect(this.gameUIcanvas.width / 2 - this.game.width / 2, this.game.height - 80, this.game.width, 80);
+        }
+
+        // Show Alert
+        this.gameUI.save();
+        this.gameUI.fillStyle = color;
+        this.gameUI.font = "24px 'Montserrat', sans-serif";
+        this.gameUI.textAlign = "center";
+        this.gameUI.fillText(message, this.gameUIcanvas.width / 2, this.game.height - 28);
+        this.gameUI.restore();
+
+        this.alert = setTimeout(() => {
+            // Clear alert
+            clearTimeout(this.alert);
+            this.alert = '';
+
+            // Clear screen
+            this.gameUI.clearRect(this.gameUIcanvas.width / 2 - this.game.width / 2, this.game.height - 80, this.game.width, 80);
+        }, 2000);
     }
 }
 
